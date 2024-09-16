@@ -19,9 +19,12 @@ const handleToggle = () => {
 </script>
 
 <template>
-    <nav class="flex flex-row gap-2 items-center justify-center dark:text-fuchsia">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <ToggleButton v-model="checked" onLabel="On" offLabel="Off" @change="handleToggle" />
+    <nav class="flex flex-row gap-6 items-center justify-center text-2xl font-bold my-5">
+        <RouterLink to="/" class="">Inicio </RouterLink>
+        <RouterLink to="/about">Chat</RouterLink>
+        <ToggleButton v-model="checked" onLabel=" " offLabel=" " onIcon="pi pi-sun" offIcon="pi pi-moon"
+            @change="handleToggle" unstyled />
     </nav>
+
+
 </template>
