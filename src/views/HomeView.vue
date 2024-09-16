@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
+import Message from 'primevue/message';
+
+
 </script>
 
 <template>
-  <div class="bg-surface-0 dark:bg-surface-950 px-6 py-20 md:px-12 lg:px-20">
-    <div class="text-surface-700 dark:text-surface-100 text-center">
-      <div class="text-primary font-bold mb-4"><i class="pi pi-discord" />&nbsp;POWERED BY DISCORD</div>
-      <div class="text-surface-900 dark:text-surface-0 font-bold text-5xl mb-4">Join Our Design Community</div>
-      <div class="text-surface-700 dark:text-surface-100 text-2xl mb-8">Lorem ipsum dolor sit, amet consectetur
-        adipisicing elit. Velit numquam eligendi quos.</div>
-      <Button label="Join Now" severity="help" />
+  <div class=" px-6 py-20 md:px-12 lg:px-20">
+    <div class=" text-center">
+      <div class="text-2xl font-bold mb-4">&nbsp;POWERED BY IA</div>
+      <div class="font-bold text-5xl mb-4">ChatIA Esicuba</div>
+      <div class=" text-2xl mb-1">Chat bot de inteligencia Artificial </div>
+      <div class=" text-s mb-12">
+        <Message severity="warn" closable> Actualmente en desarrollo </Message>
+      </div>
+
+      <Button severity="help">
+        <RouterLink to="/about">Comenzar →</RouterLink>
+      </Button>
     </div>
   </div>
 </template>
