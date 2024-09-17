@@ -14,7 +14,10 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.0.7",
+    "@types/markdown-it": "^14.1.2",
     "@vueuse/core": "^11.0.3",
+    "markdown-it": "^14.1.0",
+    "ollama": "^0.5.9",
     "pinia": "^2.1.7",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.7",
