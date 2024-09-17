@@ -4,6 +4,7 @@ import type { Message } from "ollama";
 import { computed } from "vue";
 // import MarkdownRenderer from "./MarkdownRenderer.vue";
 import SkeletonChat from './skeletonChat.vue';
+import MessageRender from './messageRender.vue';
 
 interface Props {
 
@@ -38,7 +39,7 @@ const avatarIconClass = computed(() => {
     <div v-else class="flex flex-col w-full ">
         <Avatar shape="circle" size="3rem" class="dark:bg-slate-700  my-2" icon="pi pi-user" />
         <div class="my-1 w-2/4">
-            <MarkdownRenderer :source="props.message.content"></MarkdownRenderer>
+            <MessageRender :source="props.message.content"></MessageRender>
         </div>
     </div>
 </template>
