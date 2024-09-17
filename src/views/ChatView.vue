@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import Button from 'primevue/button';
 import ScrollPanel from 'primevue/scrollpanel';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
-import { ref } from 'vue';
+import PanelChat from '@/components/panel/panelChat.vue';
 const isPdfChat = ref(false);
 const view = () => {
   isPdfChat.value = !isPdfChat.value
@@ -13,14 +14,16 @@ const view = () => {
 <template>
   <div class="w-full h-full overflow-hidden">
     <Button @click="view()" label="teste" />
-    <Splitter unstyled class="mx-16 h-full">
+    <Splitter unstyled class="mx-32 h-[90%] mb-8 overflow-hidden text-slate-950">
 
-      <SplitterPanel class="flex items-center justify-center bg-blue-300 max-w-3/4" :minSize="75">
-        <ScrollPanel style="width: 100%; height: 200px">CHAT
+      <SplitterPanel class="flex items-center justify-center dark:bg-gray-900 bg-slate-300 max-w-3/5 rounded-md"
+        :minSize="75">
+        <ScrollPanel class="h-full w-full">
+          <PanelChat :loading="true" />
         </ScrollPanel>
-
       </SplitterPanel>
-      <SplitterPanel v-if="isPdfChat" class="flex items-center justify-center bg-blue-800 w-1/4" :minSize="25">
+      <SplitterPanel v-if="isPdfChat" class="flex items-center justify-center bg-blue-800 w-2/5 rounded-md"
+        :minSize="25">
         Panel 2
       </SplitterPanel>
     </Splitter>
