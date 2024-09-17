@@ -4,7 +4,7 @@ import Button from 'primevue/button';
 import ScrollPanel from 'primevue/scrollpanel';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
-import PanelChat from '@/components/panel/panelChat.vue';
+import ContainerChat from '@/components/panel/ContainerChat.vue';
 const isPdfChat = ref(false);
 const view = () => {
   isPdfChat.value = !isPdfChat.value
@@ -18,8 +18,8 @@ const view = () => {
 
       <SplitterPanel class="flex items-center justify-center dark:bg-gray-900 bg-slate-300 max-w-3/5 rounded-md"
         :minSize="75">
-        <ScrollPanel class="h-full w-full">
-          <PanelChat :loading="true" />
+        <ScrollPanel class="h-full w-full relative">
+          <ContainerChat :loading="isPdfChat" />
         </ScrollPanel>
       </SplitterPanel>
       <SplitterPanel v-if="isPdfChat" class="flex items-center justify-center bg-blue-800 w-2/5 rounded-md"
