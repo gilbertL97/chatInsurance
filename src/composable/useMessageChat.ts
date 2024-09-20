@@ -1,6 +1,7 @@
 import type { Message } from "@/types/types";
 import { ref } from "vue";
-import ollama, { type ChatResponse } from "ollama";
+import { type ChatResponse } from "ollama";
+import { Ollama } from "ollama";
 export function useMessageChat() {
 
 
@@ -8,18 +9,19 @@ export function useMessageChat() {
     const currentInput = ref('')
 
     const loading = ref()
+    const containerChat = ref<HTMLElement | null>(null);
     const messages = ref<Message[]>([{
         role: 'agent', content: 'Hola soy ESIA en que puedo ayudarte hoy ?'
     }])
-    const appendMessage = (respose: AsyncGenerator<ChatResponse>) => {
-        const content = await;
+    const appendMessage = (respose: Message) => {
+        const content = respose.content;
         if (content) {
             //console.log(content);
             messages.value.push({
                 role: "agent",
                 content: content,
             });
-            //scrollToBottom(true);
+            scrollToBottom(true);
             // auto-chat: uncomment to have the agent interact with itself
             // i++;
             // setTimeout(() => {
@@ -44,7 +46,7 @@ export function useMessageChat() {
         currentInput.value = "";
         const inputMessage = { role: "user", content };
         messages.value.push(inputMessage);
-        //scrollToBottom(true);
+        scrollToBottom(true);
 
         const response = await tryChat(inputMessage);
         loading.value = false;
@@ -57,15 +59,16 @@ export function useMessageChat() {
         //scrollToBottom(forceScroll);
         //     }, 100);
         // }
-        appendMessage(response[message]);
+        appendMessage(response.message);
     }
 
     const tryChat = async (
         inputMessage: Message,
-    ): Promise<AsyncGenerator<ChatResponse> | undefined> => {
+    ): Promise<ChatResponse | undefined> => {
         let response;
         const otherModel = 'phi3.5'
         const model = 'tinyllama'
+        const ollama = new Ollama({})
         try {
             response = await ollama.chat({
                 model,
@@ -73,6 +76,7 @@ export function useMessageChat() {
                 stream: false,
             });
             console.log(response)
+            return response;
         } catch (error: any) {
             console.error(error);
             if (error.status_code === 404) {
@@ -80,17 +84,32 @@ export function useMessageChat() {
                 //response = await tryChat(model, inputMessage);
                 //return response;
             }
-            response = error
-
+            response = undefined
         }
-        return response;
     };
 
+    const scrollToBottom = (force: boolean) => {
+        if (!containerChat.value) return;
+        // don't scroll if the user has scrolled up
+        console.log(containerChat.value.scrollHeight - containerChat.value.scrollTop,
+            containerChat.value.scrollTop,
+            containerChat.value.clientHeight,
+            containerChat.value.scrollHeight)
+        if (
+            !force &&
+            containerChat.value.scrollHeight - containerChat.value.scrollTop >
+            containerChat.value.clientHeight + 50
+        ) {
+            return;
+        }
+        containerChat.value.scrollTop = containerChat.value.scrollHeight + 100;
+    };
     return {
         loading,
         messages,
         currentInput,
         currentMessageOutput,
         submitChat,
+        containerChat,
     }
 }

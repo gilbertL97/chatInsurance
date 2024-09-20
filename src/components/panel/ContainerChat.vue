@@ -10,11 +10,12 @@ import SplitButton from 'primevue/splitbutton';
 import ScrollPanel from 'primevue/scrollpanel';
 
 
-const { messages, currentInput, currentMessageOutput, submitChat, loading } = useMessageChat()
+const { messages, currentInput, currentMessageOutput, submitChat, loading, containerChat } = useMessageChat()
 defineProps<{ isLoading: boolean }>()
 </script>
 <template>
-    <ScrollPanel class="h-full w-full flex-grow-1 border-slate-700 border-2 text-gray-950 dark:text-gray-300 ">
+    <div ref="containerChat"
+        class="h-full w-full flex-grow-1 border-slate-700 border-2 text-gray-950 dark:text-gray-300 overflow-y-auto">
         <div class=" " v-for=" message in messages " :key="message.content">
             <MessageChat :message="message" />
         </div>
@@ -24,7 +25,7 @@ defineProps<{ isLoading: boolean }>()
         <div v-else-if="loading">
             <SkeletonChat />
         </div>
-    </ScrollPanel>
+    </div>
     <div class="flex justify-center items-center my-3 gap-1">
         <!-- <InputText v-model="question" type="text" size="large" placeholder="Large" /> -->
         <Textarea v-model="currentInput" class="resize-none w-9/12" rows="1" @keyup.enter="submitChat" />
