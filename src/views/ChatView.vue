@@ -16,7 +16,8 @@ const view = () => {
     <Button @click="view()" label="teste" />
     <Splitter unstyled class="mx-32 h-[80%] mb-8 text-slate-950">
 
-      <SplitterPanel class="flex flex-col dark:bg-gray-900  bg-slate-300 max-w-3/5 rounded-md min-h-full" :minSize="75">
+      <SplitterPanel class="flex flex-col dark:bg-gray-900  bg-slate-300 max-w-3/5 rounded-md min-h-full gap-2"
+        :minSize="75">
         <ContainerChat :isLoading="isPdfChat" />
       </SplitterPanel>
       <SplitterPanel v-if="isPdfChat" class="flex flex-col items-center justify-center bg-teal-200 w-2/5 rounded-md"
