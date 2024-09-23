@@ -1,9 +1,9 @@
+import { useOllamaService } from "@/services/ollamaService";
 import type { Message } from "@/types/types";
 import { ref } from "vue";
-import { type ChatResponse } from "ollama";
-import { Ollama } from "ollama";
-export function useMessageChat() {
 
+export function useMessageChat() {
+    const { tryChat }= useOllamaService()
 
     const currentMessageOutput = ref('')
     const currentInput = ref('')
@@ -62,31 +62,7 @@ export function useMessageChat() {
         appendMessage(response.message);
     }
 
-    const tryChat = async (
-        inputMessage: Message,
-    ): Promise<ChatResponse | undefined> => {
-        let response;
-        const otherModel = 'phi3.5'
-        const model = 'tinyllama'
-        const ollama = new Ollama({})
-        try {
-            response = await ollama.chat({
-                model,
-                messages: [inputMessage],
-                stream: false,
-            });
-            console.log(response)
-            return response;
-        } catch (error: any) {
-            console.error(error);
-            if (error.status_code === 404) {
-                //await pullModelWithProgress(model);
-                //response = await tryChat(model, inputMessage);
-                //return response;
-            }
-            response = undefined
-        }
-    };
+ 
 
     const scrollToBottom = (force: boolean) => {
         if (!containerChat.value) return;
