@@ -31,5 +31,6 @@ export function useOllamaService () {
     };
     return {
         tryChat,
+        ollamaHost,
     }
 }
